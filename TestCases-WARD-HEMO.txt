@@ -1,0 +1,252 @@
+Test Cases for the Open Access Publishing Service
+=================================================
+
+
+22 Dec 2019
+
+
+[ Note: I will add more test cases shortly.  Cases annotated with FUTURE WORK are not required. ]
+
+
+
+Submit an article
+-----------------
+
+    Must fail in the following cases.
+
+        - Some required fields are not filled out.   2/2
+
+	- ??? An invalid email address is provided.  1/2
+
+	- The file format is not PDF.  2/2
+
+	- The file size is too big (larger than 20MB).  2/2
+
+	- No subject is chosen.  2/2
+
+        - The same email address (or IP address) keeps posting new
+          articles within a very short period.  2/2
+
+        - Contain inappropriate words in the article submission form.  2/2
+	
+        - Contain inappropriate words in the content of the article. [FUTURE WORK]
+
+	- CAPTCHA verification is failed [can be deferred].   2/2
+
+
+    Must succeed in the following cases.
+
+        If none of above is true, then the submission must be successful.
+	
+        In particular, make sure that the following are true.
+
+	  - A subject has been created before being able to post an
+            article under it.  2/2
+
+          - The same subject cannot be created twice.  "computer
+            science", "Computer Science", "ComputerScience", "CompSci"
+            and "CS" are all considered the same subject.  0/2
+
+	  - If a more specific subject is created under a more general
+	    subject, show the specific subject the in following way:
+	    general subject/specific subject.  For example, Computer
+	    Science/Machine Learning, Computer Science/Computational
+	    Biology, etc.  The general subject and the specific
+	    subject are separated by a backslash.  0/2
+
+	  - Publication date for each article is shown as follows:
+            yyyy-mm-dd hh:mm.  For example, 2018-09-12 22:15.  Beijing
+            Time should be used.  2/2
+
+          - A popularity score is displayed for each article.  2/2
+
+	  - Articles under a subject are sorted by publication date
+            (with the most recent on top).  2/2
+
+	  - Popular articles are shown in a prominent place under each
+            subject.  2/2
+
+          - Site administrators can pick good articles and put them in
+            a prominent place in the front page of the
+            service. [FUTURE WORK]
+
+          - Multi-language support.  The web interface is displayed in
+            English but authors can enter article information in their
+            own preference.  2/2
+
+          - The full email addresses of authors are not displayed in
+	    the service's web pages.  Display part of the email
+	    address instead.  For example, GreatAuthor@zjnu.edu.cn
+	    will be displayed as GreatA***@zjnu.edu.cn.  2/2
+
+          - The author page lists links to all articles and comments
+            he has contributed.  2/2
+
+
+Download an article
+-------------------
+Navigate to an article page and click a download link to download the
+full text of the article.  2/2
+
+
+Search articles or comments
+---------------------------
+Relevant links are returned given a few search keywords.  1.5/2
+
+The keywords are highlighted in yellow [FUTURE WORK].
+
+
+Creating subjects
+-----------------
+1/2
+
+
+
+[  Most of the following subjects appear in PNAS https://www.pnas.org/.
+  Subjects in Medical Sciences are taken from NEJM https://www.nejm.org/topics.  ]
+
+Physical Sciences
+    Physics
+        Astronomy
+	Quantum Mechanics
+    Chemistry
+    Environmental Sciences
+Social Sciences
+    Anthropology
+    Sustainability Science    
+Biological Sciences
+    Cell Biology
+    Genetics
+    Neuroscience **
+    Plant Biology
+    Developmental Biology
+    System Biology
+    Biochemistry
+    Biophysics and Computational Biology
+Computer Sciences
+    Machine Learning
+    Computational Biology    
+    Computational Complexity
+    Computational Linguistics    
+Statistics
+    Applied Statistics
+    Mathematical Statistics
+Mathematics
+    Graph Theory
+    Number Theory
+Medical Sciences
+    Breast Cancer
+    Ebola Virus
+    Epidemics
+    Dermatology General
+    Immunity
+    Obesity
+    Neuroscience **
+
+
+Popularity metrics
+------------------
+
+There is a popularity threshold.  An article is considered popular iff
+its popularity metric is above that threshold.   2/2
+
+Change to any variables would change the popularity score.
+Visit/comment/upvote/downvote an article from another machine (IP
+address) must change the value of the popularity score.     2/2
+
+
+Donation
+--------
+A donation page contains donation methods.  2/2
+
+
+Post a comment to an article
+-----------------------------
+
+    Must fail in the following cases:
+
+       The same email address (or IP address) keeps posting new comments within a very short period.  2/2
+
+       The comment contains inappropriate words.   2/2
+
+    The most recent comment is on the top.  2/2
+
+    The oldest comment is on the bottom.  2/2
+
+
+Hide an article
+---------------
+Hide an article but do not remove it from our database.  Provide
+either an SQL utility or a guideline to do that.  2/2
+
+
+Remove an article
+-----------------
+Remove an article and its associated data from our database. Provide
+either an SQL utility or a guideline to do that.  2/2
+
+
+Remove a comment
+----------------
+Remove a comment and its associated data from our database. Provide
+either an SQL utility or a guideline to do that.  2/2
+
+
+Record number of visit for an article
+-------------------------------------
+For each article, display number of unique visits.  Here "unique" means the
+visits are from unique IPs.  We don't count the same IP twice.  2/2
+
+
+Upvote an article
+-----------------
+An IP address can upvote once and only once.  2/2
+
+
+Downvote an article
+-------------------
+An IP address can downvote once and only once.  2/2
+
+
+Upvote a comment
+----------------
+1. Add a new comment to an article.   2/2
+2. Upvote this comment from IP address 1.  Now the number of upvotes must be 1.  2/2
+3. Upvote this comment from IP address 2.  Now the number of upvotes must be 2.  2/2
+Repeat steps 2 and 3 multiple times. Each time the number of upvotes must remain unchanged. 2/2
+Refresh the article page, the number of upvotes for the new comment must be 2.  2/2
+
+Upvote must also work for existing comments. 2/2
+
+
+Downvote a comment
+------------------
+1. Add a new comment to an article. 
+2. Downvote this comment from IP address 1.  Now the number of downvotes must be 1.  2/2
+3. Downvote this comment from IP address 2.  Now the number of downvotes must be 2.  2/2
+Repeat steps 2 and 3 multiple times. Each time the number of downvotes must remain unchanged.  2/2
+Refresh the article page, the number of downvotes for the new comment must be 2.  2/2
+
+Downvote must also work for existing comments.  2/2
+
+
+Record IP addresses 
+-------------------
+For security reasons, record all IP addresses visiting our service.   2/2
+
+
+
+COMMENTS (3 Jan 2019)
+-----------------------------------------------------
+
+
+Email address validation: should not pass if there is nothing after '@'.
+
+'@limiter.limit' limits the same IP or different IPs?
+
+Cannot search Highlight part.
+
+For popularity score, show only two digits after the decimal point.
+
+Add date information for each comment.
+
