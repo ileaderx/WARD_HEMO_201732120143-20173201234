@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ user.email }}-Author
+{% endblock %}
+
+{% block content %}
+    <h1>ARTICLES</h1>
+    {% for article in articles %}
+         <h2><a href="/article/{{ article.id }}"> {{ loop.index }}.{{ article.title }}(popularity score:{{ article.score }})</a></h2>
+            <p>Abstract:{{ article.abstract }}</p>
+            <p>Highlight Part:{{ article.highlight_part }}</p>
+            <p>Post Time:{{ article.postTime }}</p>
+            <p>Access:{{ article.accessNum }} Upvpte:{{ article.upvoteNum }} Downvote:{{ article.downvoteNum }}</p>
+        {% endfor %}
+    <h1>COMMENTS</h1>
+    {% for comment in comments %}
+       <p>Date:{{ comment.postTime }}</p>
+        <p>Content:{{ comment.content }}</p>
+        <a href="/article/{{ comment.article_id }}">go to article</a>
+        <button><a href="cupvote/{{ comment.id }}">up:{{ comment.upvoteNum }}</a></button>
+        <button><a href="cdownvote/{{ comment.id }}">down:{{ comment.downvoteNum }}</a></button>
+
+    {% endfor %}
+{% endblock %}

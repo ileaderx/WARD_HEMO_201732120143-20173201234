@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+   Manage
+{% endblock %}
+
+{% block content %}
+<div class="pswManage">
+      <h2>Delete Article</h2>
+
+    <form action="/delete_article" method="post">
+        Article Id:<input type="text" name="aid">
+        Password: <input type="password" name="psw">
+        <input type="submit" value="delete it!">
+    </form>
+
+ </div>
+
+{% endblock %}
